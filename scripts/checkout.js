@@ -21,11 +21,12 @@ cart.forEach((cartItem)=>{
        matchingProduct = product;
     }
   });
-  const deliveryDateId = cartItem.deliveryDateId;
+
+  const deliveryDateId = cartItem.deliveryOptionId;
 
   let deliveryOption;
   deliveryOptions.forEach((option)=>{
-   if(option.id === deliveryDateId){
+   if(option.deliveryId === deliveryDateId){
     deliveryOption = option;
    }
   });
@@ -102,7 +103,7 @@ function deliveryOptionsHtml(matchingProduct, cartItem){
         <input type="radio"
           ${isChecked ? 'checked': ''}
           class="delivery-option-input"
-          name="delivery-option-1">
+          name="delivery-option-${cartItem.productId}">
         <div>
           <div class="delivery-option-date">
             ${dateString}
@@ -116,6 +117,7 @@ function deliveryOptionsHtml(matchingProduct, cartItem){
   });
   return html;
 }
+
 document.querySelector('.js-order-summary')
  .innerHTML = cartSummaryHTML;
 
