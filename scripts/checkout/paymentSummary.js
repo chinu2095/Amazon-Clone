@@ -3,6 +3,10 @@ import{getProduct} from '../../data/products.js';
 import{getDeliveryOption} from'../../data/delivery.js';
 import{formatCurrency} from'../utils/money.js';
 
+export function getCartQuantity() {
+   return cart.reduce((sum,item)=> sum+item.quantity,0);
+}
+
 export function renderPaymentSummary(){
   let productPriceCents = 0;
   let shippingPriceCents =0;
@@ -13,6 +17,7 @@ export function renderPaymentSummary(){
   productPriceCents += product.priceCents * cartItem.quantity;
   
   cartQuantity += cartItem.quantity;
+  
   
   const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
   shippingPriceCents += deliveryOption.priceCents
@@ -67,7 +72,7 @@ export function renderPaymentSummary(){
 
 document.querySelector('.js-payment-summary')
  .innerHTML = paymentSummaryHTML;
-
+  
 }
 
 
