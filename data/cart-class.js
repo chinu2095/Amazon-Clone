@@ -81,4 +81,4 @@ const businessCart = new Cart('cart-business');
 
 console.log(businessCart);
 console.log(cart);
-console.log(businessCart instanceof Cart);
+
