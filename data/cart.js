@@ -67,3 +67,11 @@ export function updateDeliveryOption (productId, deliveryOptionId){
   matchingItem.deliveryOptionId = deliveryOptionId;
   saveToStorage();
 }
+export function loadCart(fun){
+  const xhr = new XMLHttpRequest();
+  console.log(xhr.response);
+  fun();
+  
+  xhr.open('GET','https://supersimplebackend.dev/cart');
+  xhr.send();
+}
