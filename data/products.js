@@ -11,7 +11,8 @@ export function getProduct(productId){
 
   return matchingProduct;
  }
- class product{
+
+ class Product{
   id;
   image;
   name;
@@ -31,8 +32,28 @@ export function getProduct(productId){
   getPrice(){
     return `${formatCurrency(this.priceCents)}`;
   }
+  extraInfoHTML(){
+    return "";
+  }
 
- };
+ }
+
+ class Clothing extends Product{
+  sizeChartLink;
+
+    constructor(productsDetails){
+      super(productsDetails);
+      this.sizeChartLink = productsDetails.sizeChartLink;
+    }
+    extraInfoHTML(){
+      return `<a href="${this.sizeChartLink}" target ="_black">Size chart</a>`;
+    }
+
+  }
+  
+
+
+
 
  export const products = [
   {
@@ -694,5 +715,8 @@ export function getProduct(productId){
     ]
   }
 ].map((productsDetails)=>{
-   return new product(productsDetails);
+  if(productsDetails.type === "clothing"){
+    return new Clothing(productsDetails);
+  }
+   return new Product(productsDetails);
 });
