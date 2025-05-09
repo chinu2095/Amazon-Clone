@@ -50,7 +50,31 @@ export function getProduct(productId){
     }
 
   }
-  export let products = [];
+export let products = [];
+// fetch is a better method to make http requests because it uses promised directly 
+export function loadProductsFetch(){
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response)=>{
+    return response.json();
+    // its asynchronous, it returns a promise, we need to wait for it to finish before we continue to next step.
+    // when we return a promise it will wait for the returned promise to finished 
+  }).then((productsData)=>{
+    products = productsData.map((productsDetails)=>{
+      if(productsDetails.type === "clothing"){
+        return new Clothing(productsDetails);
+      }
+      return new Product(productsDetails);
+    });
+  });
+
+  return promise;
+}
+
+
+loadProductsFetch().then(()=>{
+  console.log('next step');
+});
    
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
