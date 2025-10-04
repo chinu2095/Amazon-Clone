@@ -50,7 +50,11 @@ export function getProduct(productId){
     }
 
   }
+
+
 export let products = [];
+
+
 // fetch is a better method to make http requests because it uses promised directly 
 export function loadProductsFetch(){
   const promise = fetch(
@@ -66,6 +70,8 @@ export function loadProductsFetch(){
       }
       return new Product(productsDetails);
     });
+  }).catch((error)=>{
+    console.log('sorry for inconvinience');
   });
 
   return promise;
@@ -87,11 +93,14 @@ export function loadProducts(fun){
        return new Product(productsDetails);
     });
     fun();
-    
+  })
+  xhr.addEventListener('error',(error)=>{
+    console.log('error somewhere');
   })
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
+
   
 
 
